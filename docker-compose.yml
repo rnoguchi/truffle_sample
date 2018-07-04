@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  web:
+    build: ./centos7
+    volumes:
+      - ${LOUNGE_PRJ_DIR}/truffle_sample/pet-shop-tutorial:/var/www/truffle_sample/pet-shop-tutorial
+    restart: always
+    environment:
+      LOUNGE_PRJ_DIR:
+    command: > 
+      bash -c "
+        cd /var/www/truffle_sample/pet-shop-tutorial;
+        npm install -g truffle;
+        truffle compile;
+        truffle migrate;
+        tail -f /dev/null;
+        "

@@ -1,0 +1,7 @@
+.~lock.*
+.idea
+.project
+.settings
+*.log
+pet-shop-tutorial/node_modules/
+pet-shop-tutorial/build/
