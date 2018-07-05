@@ -3,16 +3,25 @@ version: '2'
 services:
   web:
     build: ./centos7
+    ports:
+      - "3000:3000"
+      - "9545:9545"
+    expose:
+      - "3000"
+      - "9545"
     volumes:
-      - ${LOUNGE_PRJ_DIR}/truffle_sample/pet-shop-tutorial:/var/www/truffle_sample/pet-shop-tutorial
+      - ./pet-shop-tutorial:/var/www/pet-shop-tutorial
     restart: always
-    environment:
-      LOUNGE_PRJ_DIR:
     command: > 
       bash -c "
-        cd /var/www/truffle_sample/pet-shop-tutorial;
+        cd /var/www/pet-shop-tutorial;
+        npm install;
         npm install -g truffle;
         truffle compile;
-        truffle migrate;
+        npm run dev;
+        # 別途、ゲストサーバに入り以下コマンドを叩く
+        # cd /var/www/pet-shop-tutorial
+        # truffle development
+        # migrate
         tail -f /dev/null;
         "
